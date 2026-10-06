@@ -514,5 +514,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   
+
+// 11. LIVING BACKGROUND: blue light follows the mouse (smooth, embossed)
+  const aura = document.getElementById('cursorAura');
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (aura && finePointer && !reducedMotion) {
+    let tx = window.innerWidth / 2, ty = 220, cx = tx, cy = ty;
+    let visible = false, auraRaf = null;
+    const renderAura = () => {
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      aura.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0)`;
+      // fade aura when over dark sections so it still reads as light
+      if (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) {
+        auraRaf = requestAnimationFrame(renderAura);
+      } else {
+        aura.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+        auraRaf = null;
+      }
+    };
+    const kickAura = () => { if (!auraRaf) auraRaf = requestAnimationFrame(renderAura); };
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      if (!visible) { visible = true; aura.classList.add('is-visible'); }
+      kickAura();
+    }, { passive: true });
+    document.addEventListener('mouseleave', () => {
+      visible = false; aura.classList.remove('is-visible');
+    });
+  }
+
+  // 12. Spotlight cards: per-card glow tracks cursor position
+  if (finePointer && !reducedMotion) {
+    document.querySelectorAll('.who-card-box, .step-card, .pricing-card, .analysis-report-card').forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        el.style.setProperty('--my', `${e.clientY - r.top}px`);
+      }, { passive: true });
+    });
+  }
 });
 

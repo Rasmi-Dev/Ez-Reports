@@ -2913,3 +2913,118 @@ body {
   #chartAreaPath { opacity: 1; }
   .client-progress-fill { width: var(--w, 60%); }
 }
+
+/* =========================================================
+   LIVING BACKGROUND — cursor-follow blue light + orbs
+   ========================================================= */
+.cursor-aura {
+  position: fixed;
+  top: 0; left: 0;
+  width: 520px; height: 520px;
+  margin-left: -260px; margin-top: -260px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .5s ease;
+  background: radial-gradient(circle at center,
+    rgba(37,99,235,.16) 0%,
+    rgba(59,130,246,.10) 28%,
+    rgba(147,197,253,.06) 46%,
+    transparent 68%);
+  filter: blur(10px);
+  will-change: transform;
+}
+.cursor-aura.is-visible { opacity: 1; }
+.cursor-aura-core {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(37,99,235,.22) 0%,
+    rgba(37,99,235,.08) 22%,
+    transparent 42%);
+  filter: blur(4px);
+}
+/* Keep content above the aura */
+.header, .hero-live-section, section, footer, .version-banner { position: relative; z-index: 2; }
+.cursor-aura { z-index: 1; }
+
+/* Ambient floating orbs — site feels alive even when mouse is idle */
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: .5;
+  will-change: transform;
+}
+.orb-1 {
+  width: 480px; height: 480px;
+  top: -140px; right: -120px;
+  background: radial-gradient(circle, rgba(37,99,235,.14), transparent 70%);
+  animation: orbDrift1 16s ease-in-out infinite alternate;
+}
+.orb-2 {
+  width: 420px; height: 420px;
+  top: 32%; left: -160px;
+  background: radial-gradient(circle, rgba(59,130,246,.12), transparent 70%);
+  animation: orbDrift2 20s ease-in-out infinite alternate;
+}
+.orb-3 {
+  width: 520px; height: 520px;
+  bottom: -200px; left: 38%;
+  background: radial-gradient(circle, rgba(147,197,253,.14), transparent 70%);
+  animation: orbDrift1 24s ease-in-out infinite alternate-reverse;
+}
+@keyframes orbDrift1 {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(-60px,50px) scale(1.12); }
+}
+@keyframes orbDrift2 {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(70px,-40px) scale(1.08); }
+}
+
+/* Spotlight cards — light follows inside each card (Vercel-style) */
+.who-card-box, .step-card, .pricing-card, .metrics-box-card, .analysis-report-card {
+  position: relative;
+}
+.who-card-box::before, .step-card::before, .pricing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(37,99,235,.12), transparent 65%);
+}
+.who-card-box:hover::before, .step-card:hover::before, .pricing-card:hover::before { opacity: 1; }
+
+/* Hero report card gets a stronger embossed glow that tracks cursor */
+.analysis-report-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+  background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(37,99,235,.16), transparent 60%);
+}
+.analysis-report-card:hover::after { opacity: 1; }
+
+@media (pointer: coarse) {
+  .cursor-aura { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-aura { display: none; }
+  .orb { animation: none; }
+}

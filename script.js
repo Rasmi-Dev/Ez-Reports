@@ -403,5 +403,116 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 2000);
     });
   }
+
+// 7. Professional Motion: header elevation on scroll
+  const header = document.querySelector('.header');
+  const onScrollHeader = () => {
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 12);
+  };
+  window.addEventListener('scroll', onScrollHeader, { passive: true });
+  onScrollHeader();
+
+  // 8. Professional Motion: scroll reveal (IntersectionObserver)
+  const revealTargets = document.querySelectorAll(
+    '.who-cards-section, .who-card-box, .how-it-works-section .step-card, ' +
+    '.pricing-section, .pricing-card, .compare-section, .faq-section, ' +
+    '.contact-banner, .metrics-box-card, .metric-item, section[id="contact"] > div'
+  );
+  revealTargets.forEach((el, i) => {
+    if (el.classList.contains('reveal')) return;
+    el.classList.add('reveal');
+    // stagger: cards get incremental delay
+    if (el.classList.contains('who-card-box') || el.classList.contains('step-card') || el.classList.contains('pricing-card')) {
+      const idx = Array.from(el.parentElement.children).indexOf(el);
+      el.style.setProperty('--reveal-delay', `${Math.min(idx * 0.08, 0.32)}s`);
+    }
+  });
+  // Hero columns directional
+  const heroLeft = document.querySelector('.hero-live-left');
+  const heroRight = document.querySelector('.hero-live-right');
+  if (heroLeft) { heroLeft.classList.add('reveal', 'reveal-left'); heroLeft.classList.add('in-view'); }
+  if (heroRight) { heroRight.classList.add('reveal', 'reveal-right'); heroRight.classList.add('in-view'); }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        // trigger progress bars inside
+        entry.target.querySelectorAll('.client-progress-fill').forEach(bar => {
+          const w = bar.style.width || getComputedStyle(bar).width;
+          // preserve target width in --w once
+          if (!bar.style.getPropertyValue('--w')) {
+            const inlineW = bar.getAttribute('style')?.match(/width:\s*([^;]+)/)?.[1];
+            if (inlineW) bar.style.setProperty('--w', inlineW.trim());
+          }
+        });
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Preserve progress-bar target widths for animation
+  document.querySelectorAll('.client-progress-fill').forEach(bar => {
+    const m = bar.getAttribute('style')?.match(/width:\s*([^;]+)/);
+    if (m) bar.style.setProperty('--w', m[1].trim());
+  });
+
+  // 9. Professional Motion: count-up for hero metrics (~90 sec, 0, 25 MB, 16)
+  const metricNums = document.querySelectorAll('.metrics-box-card .metric-big-num');
+  const parseMetric = (text) => {
+    const t = text.trim();
+    if (t.startsWith('~')) return { prefix: '~', num: parseFloat(t.replace(/[^0-9.]/g, '')), suffix: t.replace(/[~0-9.\s]/g, ' ').trim().replace(/\s+/g, ' ') ? ' ' + t.replace(/^[~\d.\s]+/, '') : '', raw: t };
+    if (/^\d/.test(t)) return { prefix: '', num: parseFloat(t.replace(/[^0-9.]/g, '')), suffix: t.replace(/^[\d.\s]+/, ''), raw: t };
+    return null;
+  };
+  const animateCount = (el) => {
+    const parsed = parseMetric(el.textContent);
+    if (!parsed || isNaN(parsed.num)) return;
+    if (el.dataset.counted) return;
+    el.dataset.counted = '1';
+    el.classList.add('counting');
+    const target = parsed.num;
+    const dur = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      const formatted = target % 1 !== 0 ? val.toFixed(1) : Math.round(val).toString();
+      el.textContent = `${parsed.prefix}${formatted}${parsed.suffix ? (parsed.suffix.startsWith(' ') ? parsed.suffix : ' ' + parsed.suffix) : ''}`.replace(/\s+/g, ' ').trim() === '' ? el.textContent : `${parsed.prefix}${formatted}${parsed.suffix}`;
+      // restore exact raw at end
+      if (p === 1) { el.textContent = parsed.raw; el.classList.remove('counting'); }
+      else requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const metricIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); metricIO.unobserve(e.target); } });
+  }, { threshold: 0.4 });
+  metricNums.forEach(el => metricIO.observe(el));
+
+  // 10. Professional Motion: subtle tilt on report card (desktop only, very slight)
+  const card = document.querySelector('.analysis-report-card');
+  if (card && window.matchMedia('(pointer: fine)').matches) {
+    card.classList.add('tilt');
+    let raf = null;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        card.style.transform = `perspective(900px) rotateX(${(-py * 4).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translateY(-4px)`;
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      if (raf) cancelAnimationFrame(raf);
+      card.style.transform = '';
+    });
+  }
+
+  
 });
 

@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EzReports (Version 2 - Modern SaaS) : Turn spreadsheets into client-ready reports</title>
+  <meta name="description" content="EZ Reports turns a spreadsheet into a finished report: the summary in plain words, the findings under it, and the figures each one was calculated from.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563EB'><rect width='24' height='24' rx='6' fill='%232563EB'/><path d='M7 16V8h3a3 3 0 0 1 0 6H7v2zm3-4a1 1 0 0 0 0-2H9v2h1z' fill='%23fff'/></svg>">
+  <style>
+    /* Version 2 Custom Modern Polish */
+    .v2-body {
+      background: #FFFFFF;
+      background-image: 
+        radial-gradient(at 100% 0%, rgba(219, 234, 254, 0.4) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, rgba(239, 246, 255, 0.6) 0px, transparent 50%);
+    }
+    .v2-hero {
+      padding: 90px 24px 60px;
+      text-align: center;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+    .v2-badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1D4ED8;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    }
+    .v2-hero-title {
+      font-family: var(--font-sans);
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: #0F172A;
+      margin-bottom: 24px;
+    }
+    .v2-hero-title span {
+      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .v2-toggle-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #F1F5F9;
+      padding: 5px;
+      border-radius: 9999px;
+      margin-top: 10px;
+      margin-bottom: 30px;
+      border: 1px solid #E2E8F0;
+    }
+    .v2-toggle-btn {
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: #64748B;
+      transition: all 0.2s ease;
+    }
+    .v2-toggle-btn.active {
+      background: #FFFFFF;
+      color: #1D4ED8;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .v2-discount-pill {
+      background: #DBEAFE;
+      color: #1E40AF;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-left: 4px;
+      font-weight: 700;
+    }
+    .v2-card {
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      transition: all 0.25s ease;
+    }
+    .v2-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px rgba(37, 99, 235, 0.12);
+      border-color: #93C5FD;
+    }
+    .v2-popular-card {
+      border: 2px solid #2563EB !important;
+      background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%) !important;
+      position: relative;
+    }
+    .v2-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .v2-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .v2-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="v2-body">
+
+  <!-- Version Switcher Top Bar -->
+  <div class="version-banner">
+    <div class="tag-client">
+      <span class="badge-pill">Version 2</span>
+      <span>Modern SaaS Edition &bull; <strong>White & Blue</strong> (Zero Green)</span>
+    </div>
+    <div class="version-switch-links">
+      <a href="index.html" class="version-switch-btn" title="Version 1: Editorial Classic">
+        Version 1: Editorial Classic
+      </a>
+      <a href="version2.html" class="version-switch-btn active" title="Version 2: Modern SaaS">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Version 2: Modern SaaS
+      </a>
+      <a href="terms.html" class="version-switch-btn" title="Terms of Service">
+        Terms of Service
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="version2.html" class="logo-lockup" aria-label="EZ Reports Home">
+        <img src="brand/lockup.webp" alt="EZ Reports" height="32" style="height:32px;width:auto;" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#plans" class="nav-link">Plans</a></li>
+          <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+          <li><a href="#who-it-is-for" class="nav-link">Who it's for</a></li>
+          <li><a href="#compare" class="nav-link">Compare</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="terms.html" class="btn-secondary">Terms of Service</a>
+        <a href="#plans" class="btn-primary">
+          Get started free
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- V2 Hero Section (Blue & White Background) -->
+    <section class="v2-hero" id="home">
+      <div class="v2-badge-top">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        FOR CONSULTANTS, ANALYSTS, AND SMB TEAMS WHO LIVE IN EXCEL
+      </div>
+
+      <h1 class="v2-hero-title">
+        Turn spreadsheets<br>into<br><span>client-ready reports.</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Stop wrestling with pivot tables, chart formatting, and PDF exports. Upload your CSV or Excel files and EzReports delivers a polished report your client can actually read, with the figures, charts, and findings already in it.
+      </p>
+
+      <div class="hero-actions-group" style="justify-content:center;margin-bottom:24px;">
+        <a href="#plans" class="btn-primary" style="padding:13px 28px;font-size:15px;border-radius:9999px;">
+          Get started for free &rarr;
+        </a>
+        <a href="#how-it-works" class="btn-hero-see-works" style="color:var(--brand-blue-700);">
+          See how it works &rarr;
+        </a>
+      </div>
+
+      <div class="hero-trust-subline" style="justify-content:center;margin-bottom:40px;">
+        <span>Supports .CSV, .XLS, and .XLSX</span>
+        <span class="hero-dot-separator">&bull;</span>
+        <span>Free to start</span>
+        <span class="hero-dot-separator">&bull;</span>
+        <span>Delete your data anytime</span>
+      </div>
+
+      <!-- 4 Key Hero Metrics in Light Theme -->
+      <div class="hero-metrics-bar" style="border-top:1px solid #E2E8F0;padding-top:36px;margin-bottom:60px;">
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">~90 sec</div>
+          <div class="metric-caption" style="color:#64748B;">typical upload to finished report</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">0</div>
+          <div class="metric-caption" style="color:#64748B;">formulas to write</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">25 MB</div>
+          <div class="metric-caption" style="color:#64748B;">largest file supported</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">16</div>
+          <div class="metric-caption" style="color:#64748B;">ways a result can be drawn to fit the data</div>
+        </div>
+      </div>
+
+      <!-- Billing Cycle Switcher for Pricing -->
+      <div style="margin-top:20px;" id="plans">
+        <h2 style="font-size:32px;font-weight:800;color:#0F172A;letter-spacing:-0.03em;margin-bottom:8px;">Simple pricing, built to be checked.</h2>
+        <p style="font-size:16px;color:#64748B;max-width:680px;margin:0 auto 24px;">One analysis reads a whole project — however many linked workbooks that takes — and returns a report where every figure traces back to the query behind it.</p>
+        
+        <div class="v2-toggle-container">
+          <button class="v2-toggle-btn active" id="btnMonthly">Monthly billing</button>
+          <button class="v2-toggle-btn" id="btnAnnual">
+            Annual billing
+            <span class="v2-discount-pill">Save 20%</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Grid Version 2 -->
+    <section class="pricing-section">
+      <div class="v2-grid">
+        
+        <!-- Free -->
+        <div class="pricing-card v2-card">
+          <h2 class="plan-name">Free</h2>
+          <p class="plan-desc">For trying it on your own spreadsheets.</p>
+          <div class="plan-price-box">
+            <span class="plan-price">$0</span>
+          </div>
+          <p class="plan-analyses">3 analyses, and they do not expire</p>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Spreadsheet and CSV analysis</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Every figure traceable to the numbers behind it</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Email support</span>
+            </li>
+          </ul>
+          <a href="#contact" class="plan-btn plan-btn-outline">Start free</a>
+        </div>
+
+        <!-- Starter (Featured - Pure White & Royal Blue) -->
+        <div class="pricing-card v2-card v2-popular-card">
+          <div class="popular-badge" style="background:#2563EB;">Most popular</div>
+          <h2 class="plan-name">Starter</h2>
+          <p class="plan-desc">For a consultant running reports for their own clients.</p>
+          <div class="plan-price-box">
+            <span class="plan-price" id="v2StarterPrice">$29.99</span>
+            <span class="plan-period">per user / month</span>
+          </div>
+          <p class="plan-analyses">25 analyses per month</p>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Excel and CSV, including linked workbook sets</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Every figure traceable to the numbers behind it</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>PDF export</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Email support</span>
+            </li>
+          </ul>
+          <a href="#contact" class="plan-btn plan-btn-solid">Get Starter</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="pricing-card v2-card">
+          <h2 class="plan-name">Pro</h2>
+          <p class="plan-desc">For an agency reporting across many clients.</p>
+          <div class="plan-price-box">
+            <span class="plan-price" id="v2ProPrice">$99</span>
+            <span class="plan-period">per user / month</span>
+          </div>
+          <p class="plan-analyses">100 analyses per month</p>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Everything in Starter</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Priority email support</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Email support</span>
+            </li>
+          </ul>
+          <a href="#contact" class="plan-btn plan-btn-outline">Get Pro</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="pricing-card v2-card">
+          <h2 class="plan-name">Enterprise</h2>
+          <p class="plan-desc">For several teams across an organisation.</p>
+          <div class="plan-price-box">
+            <span class="plan-price text-talk">Let's talk</span>
+          </div>
+          <p class="plan-analyses">Volume by agreement</p>
+          <ul class="plan-features">
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Everything in Pro</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Custom integration</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Dedicated support</span>
+            </li>
+            <li class="plan-feature-item">
+              <span class="check-icon">✓</span>
+              <span>Email support</span>
+            </li>
+          </ul>
+          <a href="#contact" class="plan-btn plan-btn-outline">Talk to us</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Compare Plans -->
+    <section class="compare-section" id="compare">
+      <div class="section-header-compact">
+        <h2 class="section-title">Compare plans</h2>
+        <p class="section-subtitle">
+          Every plan reads the file you actually have and shows the numbers behind every figure. The difference is scale and support.
+        </p>
+      </div>
+
+      <div class="compare-table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Free</th>
+              <th class="col-highlight">Starter</th>
+              <th>Pro</th>
+              <th>Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Analyses per month</td>
+              <td>3 total</td>
+              <td class="col-highlight">25</td>
+              <td>100</td>
+              <td>By agreement</td>
+            </tr>
+            <tr>
+              <td>Linked workbook sets</td>
+              <td><span class="dash-muted">—</span></td>
+              <td class="col-highlight"><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>CSV, Excel</td>
+              <td class="col-highlight">CSV, Excel</td>
+              <td>CSV, Excel</td>
+              <td>CSV, Excel</td>
+            </tr>
+            <tr>
+              <td>PDF export</td>
+              <td><span class="dash-muted">—</span></td>
+              <td class="col-highlight"><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+            <tr>
+              <td>Email support</td>
+              <td><span class="check-blue">✓</span></td>
+              <td class="col-highlight"><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+            <tr>
+              <td>Priority support</td>
+              <td><span class="dash-muted">—</span></td>
+              <td class="col-highlight"><span class="dash-muted">—</span></td>
+              <td><span class="check-blue">✓</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+            <tr>
+              <td>Custom integration</td>
+              <td><span class="dash-muted">—</span></td>
+              <td class="col-highlight"><span class="dash-muted">—</span></td>
+              <td><span class="dash-muted">—</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+            <tr>
+              <td>Dedicated support</td>
+              <td><span class="dash-muted">—</span></td>
+              <td class="col-highlight"><span class="dash-muted">—</span></td>
+              <td><span class="dash-muted">—</span></td>
+              <td><span class="check-blue">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works-section" id="how-it-works">
+      <div>
+        <span class="eyebrow-tag">HOW IT WORKS</span>
+        <h2 class="section-title">From file to finished report in <span class="editorial-italic">three steps</span>.</h2>
+        <p class="section-subtitle">No setup, no template to fill in, no learning curve.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-number">01</span>
+            <div class="step-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">Drop in your files</h3>
+          <p class="step-desc">
+            One spreadsheet or a folder of them. Messy headers, merged cells, and workbooks that reference each other are the normal case here.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-number">02</span>
+            <div class="step-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">We work out what to ask</h3>
+          <p class="step-desc">
+            We read the structure, decide which questions actually matter for this data, and answer them with results you can inspect afterwards.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <span class="step-number">03</span>
+            <div class="step-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">Hand it over</h3>
+          <p class="step-desc">
+            Findings written in plain words, each one linked to the numbers behind it, with the charts that fit the data. Download it as a document and you are done.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="who-section" id="who-it-is-for">
+      <div class="who-layout">
+        <div class="who-left">
+          <span class="eyebrow-tag">WHO IT'S FOR</span>
+          <h2 class="section-title">Built for people who'd rather not be in Excel all day.</h2>
+          <p class="section-subtitle">
+            EzReports replaces the painful, repetitive part of reporting, so the people who actually need the report can read it.
+          </p>
+        </div>
+
+        <div class="who-list">
+          <div class="who-item">
+            <div class="who-badge-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div class="who-content">
+              <div class="who-header-row">
+                <span class="who-num">01</span>
+                <span class="who-role">Consultants</span>
+              </div>
+              <p class="who-desc">You bill by the hour, not by the chart. Skip the manual formatting and ship client deliverables faster.</p>
+            </div>
+          </div>
+
+          <div class="who-item">
+            <div class="who-badge-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="who-content">
+              <div class="who-header-row">
+                <span class="who-num">02</span>
+                <span class="who-role">Analysts & finance teams</span>
+              </div>
+              <p class="who-desc">You know the numbers. You should not have to hand-build the dashboard. Findings you can check, and charts that fit the data.</p>
+            </div>
+          </div>
+
+          <div class="who-item">
+            <div class="who-badge-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <div class="who-content">
+              <div class="who-header-row">
+                <span class="who-num">03</span>
+                <span class="who-role">Small business operators</span>
+              </div>
+              <p class="who-desc">You do not have a BI team. You have a spreadsheet. Turn weekly exports into a real report with no setup or training.</p>
+            </div>
+          </div>
+
+          <div class="who-item">
+            <div class="who-badge-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="who-content">
+              <div class="who-header-row">
+                <span class="who-num">04</span>
+                <span class="who-role">Agencies & freelancers</span>
+              </div>
+              <p class="who-desc">End the copy-paste-from-dashboards routine. Drop in a CSV and you are done.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+      <h2 class="faq-title">Frequently asked questions</h2>
+
+      <div class="faq-accordion">
+        <div class="faq-item is-open">
+          <button class="faq-question-btn" aria-expanded="true">
+            <span>Can I try EzReports for free?</span>
+            <span class="faq-toggle-icon">−</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes — start with 3 free analyses on your own spreadsheets. No card required, and they never expire.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>Can I cancel or change my plan anytime?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes. You can upgrade, downgrade, or cancel your Subscription at any time. When cancelled, your plan stays active until the end of the billing period you have paid for.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>What counts as one analysis?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              One analysis reads an entire workbook or folder of linked sheets, extracts structure, executes calculations, writes narrative findings, renders charts, and outputs an executive PDF. A failed analysis is never counted against your quota.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" aria-expanded="false">
+            <span>Do you offer custom enterprise solutions?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes. For teams requiring custom integrations, dedicated processing volume, on-premise governance, or bespoke reporting templates, our engineering team provides tailored onboarding and dedicated SLAs. Contact us at <a href="mailto:support@ezreports.io" style="color:var(--brand-blue-700);text-decoration:underline;">support@ezreports.io</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="contact-banner-section" id="contact">
+      <div class="contact-banner">
+        <div class="contact-banner-info">
+          <h2 class="contact-banner-title">Ready to get in touch?</h2>
+          <p class="contact-banner-desc">
+            Contact us for a personalized demo, or to talk through a plan that fits your team.
+          </p>
+          <a href="mailto:support@ezreports.io" class="contact-banner-email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            support@ezreports.io
+          </a>
+        </div>
+
+        <div class="contact-banner-actions">
+          <a href="mailto:support@ezreports.io?subject=Schedule%20a%20Call%20with%20EZ%20Reports" class="btn-cta-blue">
+            Schedule a call &rarr;
+          </a>
+          <a href="mailto:support@ezreports.io?subject=Inquiry%20about%20EZ%20Reports" class="btn-cta-ghost">
+            Email us
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <a href="version2.html" class="logo-lockup">
+            <img src="brand/lockup-dark.webp" alt="EZ Reports" height="32" style="height:32px;width:auto;" />
+          </a>
+          <p>
+            Upload the spreadsheet you already have. Get back a report you can hand to a client: the summary in plain words, the findings under it, and the figures each one came from.
+          </p>
+          <a href="#plans" class="btn-primary" style="display:inline-flex;">Start free</a>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#how-it-works">How to use</a></li>
+            <li><a href="#who-it-is-for">Features</a></li>
+            <li><a href="#plans">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#who-it-is-for">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="mailto:support@ezreports.io">support@ezreports.io</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Your data</h3>
+          <ul>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="terms.html#privacy">Privacy Policy</a></li>
+            <li><a href="mailto:privacy@ezreports.io">privacy@ezreports.io</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <ul class="footer-trust-grid">
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Reads .xlsx, .xlsm, .xls and .csv, up to 25 MB a file</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Every figure calculated from your data and reconciled</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Files encrypted, and deleted 30 days after upload</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>3 analyses free, no card needed</span>
+        </li>
+      </ul>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SVC Group LLC, doing business as EzReports. 43763 Cog Hill, Ashburn, VA 20147.</p>
+        <div>
+          <a href="#plans">Launch app</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Version 2 Annual/Monthly toggle logic
+    const btnMonthly = document.getElementById('btnMonthly');
+    const btnAnnual = document.getElementById('btnAnnual');
+    const starterPrice = document.getElementById('v2StarterPrice');
+    const proPrice = document.getElementById('v2ProPrice');
+
+    if (btnMonthly && btnAnnual) {
+      btnAnnual.addEventListener('click', () => {
+        btnAnnual.classList.add('active');
+        btnMonthly.classList.remove('active');
+        if (starterPrice) starterPrice.textContent = '$23.99';
+        if (proPrice) proPrice.textContent = '$79';
+      });
+
+      btnMonthly.addEventListener('click', () => {
+        btnMonthly.classList.add('active');
+        btnAnnual.classList.remove('active');
+        if (starterPrice) starterPrice.textContent = '$29.99';
+        if (proPrice) proPrice.textContent = '$99';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EZ Reports: Turn spreadsheets into client-ready reports in minutes</title>
+  <meta name="description" content="EZ Reports replaces the painful, repetitive part of reporting, so the people who actually need the report can read it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="brand/icon.png">
+</head>
+<body>
+
+  <!-- Top Switcher Bar -->
+  <div class="version-banner">
+    <div class="tag-client">
+      <span class="badge-pill">Official</span>
+      <span>EZ Reports Official Theme: <strong>White & Blue</strong> (Zero Green)</span>
+    </div>
+    <div class="version-switch-links">
+      <a href="index.html" class="version-switch-btn active" title="Official Website">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Official Version
+      </a>
+      <a href="version2.html" class="version-switch-btn" title="Version 2: Modern SaaS">
+        Version 2: Modern SaaS
+      </a>
+      <a href="terms.html" class="version-switch-btn" title="Terms of Service">
+        Terms of Service
+      </a>
+    </div>
+  </div>
+
+  <!-- 1. Header / Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-lockup" aria-label="EZ Reports Home">
+        <img src="brand/lockup.webp" alt="EZ Reports" height="32" style="height:32px;width:auto;" />
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#who-it-is-for" class="nav-link">Who it's for</a></li>
+          <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="terms.html" class="btn-secondary" style="border:none;background:transparent;color:#475569;">Sign in</a>
+        <a href="#pricing" class="btn-primary" style="border-radius:9999px;padding:9px 22px;">
+          Get started &rarr;
+        </a>
+        <button class="mobile-menu-btn" aria-label="Toggle navigation" id="mobileMenuBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Hero Section -->
+  <section class="hero-live-section" id="home">
+    <div class="hero-live-container">
+      <!-- Left Column -->
+      <div class="hero-live-left">
+        <div class="hero-live-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>For consultants, analysts, and teams who live in Excel</span>
+        </div>
+
+        <h1 class="hero-live-title">
+          Built for people who'd<br>
+          rather not be in <span class="hero-blue-script">Excel all day.</span>
+        </h1>
+
+        <p class="hero-live-desc">
+          <strong>EZ Reports</strong> replaces the painful, repetitive part of reporting, so the people who actually need the report can read it.
+        </p>
+
+        <!-- Executive Feature Checkpoints (Fills space, balances height with report card) -->
+        <div class="hero-feature-points">
+          <div class="hero-point-item">
+            <span class="point-check">✓</span>
+            <span><strong>Zero manual formatting:</strong> Upload messy sheets and get polished client-ready reports</span>
+          </div>
+          <div class="hero-point-item">
+            <span class="point-check">✓</span>
+            <span><strong>Reconciled figures:</strong> Every single number traces directly back to raw cell queries</span>
+          </div>
+          <div class="hero-point-item">
+            <span class="point-check">✓</span>
+            <span><strong>Automated executive delivery:</strong> Formatted narrative summary, fitted charts, and PDF export</span>
+          </div>
+        </div>
+
+        <div class="hero-live-actions">
+          <a href="#pricing" class="btn-pill-primary">
+            Get started for free &rarr;
+          </a>
+          <a href="#how-it-works" class="btn-pill-outline">
+            See how it works &rarr;
+          </a>
+        </div>
+
+        <div class="hero-live-trust">
+          <span>Supports .CSV, .XLS, and .XLSX</span>
+          <span class="hero-dot-separator">&bull;</span>
+          <span>Free to start</span>
+          <span class="hero-dot-separator">&bull;</span>
+          <span>Delete your data anytime</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Analysis Report Preview Card -->
+      <div class="hero-live-right">
+        <!-- Floating Pill: Upload complete -->
+        <div class="floating-upload-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Upload complete</span>
+        </div>
+
+        <div class="analysis-report-card">
+          <!-- Card Top: Browser Window Header -->
+          <div class="card-browser-bar">
+            <div class="card-browser-dots">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+            </div>
+            <div class="card-browser-url">ezreports.io &bull; executive preview</div>
+            <div class="card-browser-status">
+              <span class="status-pulse-dot"></span>
+              <span>Live Sync</span>
+            </div>
+          </div>
+
+          <!-- Card Top: File Info Header -->
+          <div class="card-file-header">
+            <div class="file-info-group">
+              <div class="file-icon-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div>
+                <div class="file-name-text">Q3-client-advisory.xlsx</div>
+                <div class="file-sub-meta">3 linked sheets &bull; 1,420 rows calculated</div>
+              </div>
+            </div>
+            <div class="verified-pill">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>100% Reconciled</span>
+            </div>
+          </div>
+
+          <!-- Executive KPI Quick Metric Strip -->
+          <div class="card-kpi-strip">
+            <div class="kpi-mini-card">
+              <span class="kpi-mini-label">Total Billings</span>
+              <div class="kpi-mini-val-row">
+                <span class="kpi-mini-val" id="heroKpi1">$148,250</span>
+                <span class="kpi-mini-trend" id="heroKpi1Trend">+24.8%</span>
+              </div>
+            </div>
+            <div class="kpi-mini-card">
+              <span class="kpi-mini-label">Effective Yield</span>
+              <div class="kpi-mini-val-row">
+                <span class="kpi-mini-val" id="heroKpi2">$185/hr</span>
+                <span class="kpi-mini-trend" id="heroKpi2Trend">+11.2%</span>
+              </div>
+            </div>
+            <div class="kpi-mini-card">
+              <span class="kpi-mini-label">Cell Provenance</span>
+              <div class="kpi-mini-val-row">
+                <span class="kpi-mini-val" id="heroKpi3">0 Leaks</span>
+                <span class="kpi-mini-tag">Audit Clean</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Center: Modern Spline Trend Area Chart -->
+          <div class="card-chart-section">
+            <div class="chart-header-row">
+              <div class="chart-title-group">
+                <span class="chart-title-label">TRAJECTORY ANALYSIS</span>
+                <span class="chart-subtitle-label" id="heroChartSubtitle">Monthly Revenue Performance</span>
+              </div>
+              <div class="chart-filter-tabs">
+                <button type="button" class="chart-tab-btn active" data-metric="revenue" id="tabRevenue">Revenue</button>
+                <button type="button" class="chart-tab-btn" data-metric="margin" id="tabMargin">Margin</button>
+                <button type="button" class="chart-tab-btn" data-metric="hours" id="tabHours">Hours</button>
+              </div>
+            </div>
+
+            <!-- Modern Curved Trend Chart Canvas with Interactive Tooltip -->
+            <div class="curve-chart-wrapper" id="heroChartWrapper">
+              <svg class="curve-chart-svg" viewBox="0 0 460 145" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#2563EB" stop-opacity="0.32"/>
+                    <stop offset="65%" stop-color="#3B82F6" stop-opacity="0.08"/>
+                    <stop offset="100%" stop-color="#60A5FA" stop-opacity="0.0"/>
+                  </linearGradient>
+                  <filter id="curveGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#2563EB" flood-opacity="0.35"/>
+                  </filter>
+                </defs>
+
+                <!-- Subtle Grid Lines -->
+                <line x1="10" y1="25" x2="450" y2="25" stroke="#F1F5F9" stroke-dasharray="3 3" stroke-width="1"/>
+                <line x1="10" y1="65" x2="450" y2="65" stroke="#F1F5F9" stroke-dasharray="3 3" stroke-width="1"/>
+                <line x1="10" y1="105" x2="450" y2="105" stroke="#F1F5F9" stroke-dasharray="3 3" stroke-width="1"/>
+
+                <!-- Benchmark / Target Baseline Line -->
+                <path id="chartTargetLine" d="M 15 100 C 90 85, 180 75, 270 60 C 340 50, 400 44, 445 38" 
+                      fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+                <!-- Area Fill Under Spline Curve -->
+                <path id="chartAreaPath" 
+                      d="M 15 120 C 85 110, 140 92, 205 78 C 265 64, 305 78, 350 28 C 390 -8, 420 42, 445 34 L 445 142 L 15 142 Z" 
+                      fill="url(#curveGradient)"/>
+
+                <!-- Glowing Spline Curve Line -->
+                <path id="chartCurvePath" 
+                      d="M 15 120 C 85 110, 140 92, 205 78 C 265 64, 305 78, 350 28 C 390 -8, 420 42, 445 34" 
+                      fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" filter="url(#curveGlow)"/>
+
+                <!-- Vertical Indicator Line at Peak Point -->
+                <line id="chartGuideLine" x1="350" y1="28" x2="350" y2="142" stroke="#2563EB" stroke-dasharray="3 3" stroke-width="1.5" opacity="0.6"/>
+
+                <!-- Interactive Data Points -->
+                <circle class="chart-point" cx="15" cy="120" r="4.5" data-index="0" data-label="May" data-val="$18,400" data-trace="Sheet1!C15"></circle>
+                <circle class="chart-point" cx="95" cy="108" r="4.5" data-index="1" data-label="Jun" data-val="$23,600" data-trace="Sheet1!C19"></circle>
+                <circle class="chart-point" cx="180" cy="84" r="4.5" data-index="2" data-label="Jul" data-val="$31,250" data-trace="Sheet1!C22"></circle>
+                <circle class="chart-point" cx="265" cy="68" r="4.5" data-index="3" data-label="Aug" data-val="$38,900" data-trace="Sheet1!C25"></circle>
+                <circle class="chart-point active-peak" id="peakPoint" cx="350" cy="28" r="6" data-index="4" data-label="Sep (Peak)" data-val="$48,290" data-trace="Sheet1!C28"></circle>
+                <circle class="chart-point" cx="445" cy="34" r="4.5" data-index="5" data-label="Oct" data-val="$44,810" data-trace="Sheet1!C32"></circle>
+              </svg>
+
+              <!-- Floating Live Hover Tooltip Anchored Near Peak -->
+              <div class="chart-floating-tooltip" id="chartTooltip">
+                <div class="tooltip-header">
+                  <span class="tooltip-badge" id="tooltipBadge">Q3 Peak &bull; Sep</span>
+                  <span class="tooltip-trace" id="tooltipTrace">Cell C28</span>
+                </div>
+                <div class="tooltip-value-row">
+                  <span class="tooltip-val" id="tooltipVal">$48,290</span>
+                  <span class="tooltip-growth" id="tooltipGrowth">+18.4% YoY</span>
+                </div>
+                <div class="tooltip-sub" id="tooltipSub">Northwind Traders &bull; Query #18</div>
+              </div>
+            </div>
+
+            <!-- Timeline Axis Labels -->
+            <div class="chart-timeline-labels">
+              <span>May</span>
+              <span>Jun</span>
+              <span>Jul</span>
+              <span>Aug</span>
+              <span class="timeline-active">Sep</span>
+              <span>Oct</span>
+            </div>
+
+            <!-- Breakdown Rows with Avatars and Micro Progress Bars -->
+            <div class="client-data-rows" id="heroClientList">
+              <div class="client-row-item">
+                <div class="client-row-meta">
+                  <div class="client-badge-info">
+                    <span class="client-avatar">NT</span>
+                    <span class="client-row-name">Northwind Traders</span>
+                  </div>
+                  <span class="client-row-amount">$48,290 <span class="badge-growth">+18.4%</span></span>
+                </div>
+                <div class="client-progress-track">
+                  <div class="client-progress-fill" style="width: 86%;"></div>
+                </div>
+              </div>
+
+              <div class="client-row-item">
+                <div class="client-row-meta">
+                  <div class="client-badge-info">
+                    <span class="client-avatar">AC</span>
+                    <span class="client-row-name">Acme Advisory</span>
+                  </div>
+                  <span class="client-row-amount">$36,150 <span class="badge-growth">+8.1%</span></span>
+                </div>
+                <div class="client-progress-track">
+                  <div class="client-progress-fill" style="width: 64%;"></div>
+                </div>
+              </div>
+
+              <div class="client-row-item">
+                <div class="client-row-meta">
+                  <div class="client-badge-info">
+                    <span class="client-avatar">GL</span>
+                    <span class="client-row-name">Globex Financial</span>
+                  </div>
+                  <span class="client-row-amount">$29,480 <span class="badge-growth">+5.6%</span></span>
+                </div>
+                <div class="client-progress-track">
+                  <div class="client-progress-fill" style="width: 52%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Bottom: Key Finding Box with Verified Audit Trace -->
+          <div class="card-finding-box">
+            <div class="finding-header">
+              <div class="finding-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                KEY EXECUTIVE FINDING
+              </div>
+              <span class="finding-confidence">Confidence: 100%</span>
+            </div>
+            <div class="finding-quote" id="heroFindingQuote">
+              &ldquo;Top 2 clients generate 57% of quarterly revenue. High retention in Northwind Traders protects bottom line with zero billing leaks.&rdquo;
+            </div>
+            <div class="finding-trace-link" title="Click to view cell query provenance">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span>Reconciled to <strong style="color:#93C5FD;">Worksheet1!C14:C42</strong> &bull; Query #18</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Pill: Report ready · PDF -->
+        <div class="floating-pdf-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Report ready &bull; PDF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Key Hero Metrics (Encapsulated in clean Card to cover space) -->
+    <div class="metrics-box-container">
+      <div class="metrics-box-card">
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">~90 sec</div>
+          <div class="metric-caption" style="color:#64748B;">typical upload to finished report</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">0</div>
+          <div class="metric-caption" style="color:#64748B;">formulas to write</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">25 MB</div>
+          <div class="metric-caption" style="color:#64748B;">largest file supported</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-big-num" style="color:#0F172A;">16</div>
+          <div class="metric-caption" style="color:#64748B;">ways a result can be drawn to fit the data</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 (cont.) Who it's for - 4-Card Executive Grid (No dead space) -->
+  <section class="who-cards-section" id="who-it-is-for">
+    <div style="text-align:center;max-width:760px;margin:0 auto 20px;">
+      <span class="eyebrow-tag" style="color:var(--brand-blue-600);">WHO IT'S FOR</span>
+      <h2 class="section-title">Built for people who'd rather not be in Excel all day.</h2>
+      <p class="section-subtitle" style="margin:0 auto;">
+        EZ Reports replaces the painful, repetitive part of reporting, so the people who actually need the report can read it.
+      </p>
+    </div>
+
+    <div class="who-cards-grid">
+      <!-- 01 Consultants -->
+      <div class="who-card-box">
+        <div class="who-card-top">
+          <span class="who-card-num">01</span>
+          <div class="who-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+        </div>
+        <h3 class="who-card-title">Consultants</h3>
+        <p class="who-card-desc">You bill by the hour, not by the chart. Skip the manual formatting and ship client deliverables faster.</p>
+      </div>
+
+      <!-- 02 Analysts & finance teams -->
+      <div class="who-card-box">
+        <div class="who-card-top">
+          <span class="who-card-num">02</span>
+          <div class="who-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+        </div>
+        <h3 class="who-card-title">Analysts & finance teams</h3>
+        <p class="who-card-desc">You know the numbers. You should not have to hand-build the dashboard. Findings you can check, and charts that fit the data.</p>
+      </div>
+
+      <!-- 03 Small business operators -->
+      <div class="who-card-box">
+        <div class="who-card-top">
+          <span class="who-card-num">03</span>
+          <div class="who-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+        </div>
+        <h3 class="who-card-title">Small business operators</h3>
+        <p class="who-card-desc">You do not have a BI team. You have a spreadsheet. Turn weekly exports into a great report with no setup or training.</p>
+      </div>
+
+      <!-- 04 Agencies & freelancers -->
+      <div class="who-card-box">
+        <div class="who-card-top">
+          <span class="who-card-num">04</span>
+          <div class="who-card-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+        </div>
+        <h3 class="who-card-title">Agencies & freelancers</h3>
+        <p class="who-card-desc">End the copy-paste-from-dashboards routine. Drop in a CSV and you are done.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 3. How It Works -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div>
+      <span class="eyebrow-tag">HOW IT WORKS</span>
+      <h2 class="section-title">From file to finished report in <span class="editorial-italic">three steps</span>.</h2>
+      <p class="section-subtitle">No setup, no template to fill in, no learning curve.</p>
+    </div>
+
+    <div class="steps-grid">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">Step 1</span>
+          <div class="step-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+        </div>
+        <h3 class="step-title">Drop in your files</h3>
+        <p class="step-desc">
+          One spreadsheet or a folder of them. Messy headers, merged cells, and workbooks that reference each other are the normal case here.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">Step 2</span>
+          <div class="step-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><mpath d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+        </div>
+        <h3 class="step-title">We work out what to ask</h3>
+        <p class="step-desc">
+          We read the structure, decide which questions actually matter for this data, and answer them with results you can inspect afterwards.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-number">Step 3</span>
+          <div class="step-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+        <h3 class="step-title">Hand it over</h3>
+        <p class="step-desc">
+          Findings written in plain words, each one linked to the numbers behind it, with charts that fit the data. Download it as a document and you are done.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div style="text-align:center;max-width:760px;margin:0 auto 40px;">
+      <h2 class="section-title">Simple pricing, built to be checked.</h2>
+      <p class="section-subtitle" style="margin:0 auto 24px;">
+        One analysis reads a whole project — however many linked workbooks that takes — and returns a report where every figure traces back to the query behind it.
+      </p>
+
+      <!-- Pricing Highlights (Pills - White & Blue, No Green) -->
+      <div class="hero-pills" style="justify-content:center;">
+        <div class="hero-pill">
+          <span class="pill-dot"></span>
+          <span>3 free analyses to start, no card needed</span>
+        </div>
+        <div class="hero-pill">
+          <span class="pill-dot"></span>
+          <span>Analyses never expire</span>
+        </div>
+        <div class="hero-pill pill-blue-accent">
+          <span class="pill-dot"></span>
+          <span>A failed analysis is never counted</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Pricing Cards -->
+    <div class="pricing-grid">
+      <!-- Free -->
+      <div class="pricing-card">
+        <h2 class="plan-name">Free</h2>
+        <p class="plan-desc">For trying it on your own.</p>
+        <div class="plan-price-box">
+          <span class="plan-price">$0</span>
+        </div>
+        <p class="plan-analyses">Includes: 3 analyses</p>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Spreadsheet and CSV analysis</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Priority email support</span>
+          </li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-outline">Start free</a>
+      </div>
+
+      <!-- Starter (Highlighted) -->
+      <div class="pricing-card is-popular">
+        <div class="popular-badge">Most popular</div>
+        <h2 class="plan-name">Starter</h2>
+        <p class="plan-desc">For regular reporting.</p>
+        <div class="plan-price-box">
+          <span class="plan-price">$29.99</span>
+          <span class="plan-period">per month</span>
+        </div>
+        <p class="plan-analyses">25 analyses per month</p>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Linked workbooks</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Spreadsheet and CSV analysis</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>PDF export</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Email support</span>
+          </li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-solid">Get Starter</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card">
+        <h2 class="plan-name">Pro</h2>
+        <p class="plan-desc">For agencies and reporting teams.</p>
+        <div class="plan-price-box">
+          <span class="plan-price">$99</span>
+          <span class="plan-period">per month</span>
+        </div>
+        <p class="plan-analyses">100 analyses per month</p>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Linked workbooks</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Spreadsheet and CSV analysis</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>PDF export</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Priority support</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Custom integrations</span>
+          </li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-outline">Get Pro</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <h2 class="plan-name">Enterprise</h2>
+        <p class="plan-desc">For several teams across an organization.</p>
+        <div class="plan-price-box">
+          <span class="plan-price text-talk">Let's talk</span>
+        </div>
+        <p class="plan-analyses">Volume by arrangement</p>
+        <ul class="plan-features">
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Custom integrations</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Dedicated support</span>
+          </li>
+          <li class="plan-feature-item">
+            <span class="check-icon">✓</span>
+            <span>Enterprise support</span>
+          </li>
+        </ul>
+        <a href="#contact" class="plan-btn plan-btn-outline">Let's talk</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Compare Plans -->
+  <section class="compare-section" id="features">
+    <div class="section-header-compact">
+      <h2 class="section-title">Compare plans</h2>
+      <p class="section-subtitle">
+        Every plan reads the file you actually have and shows the numbers behind every figure. The difference is scale and support.
+      </p>
+    </div>
+
+    <div class="compare-table-wrapper">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Comparison Item</th>
+            <th>Free</th>
+            <th class="col-highlight">Starter</th>
+            <th>Pro</th>
+            <th>Enterprise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Analyses per month</td>
+            <td>3 total</td>
+            <td class="col-highlight">25</td>
+            <td>100</td>
+            <td>By arrangement</td>
+          </tr>
+          <tr>
+            <td>Linked workbook size</td>
+            <td><span class="dash-muted">—</span></td>
+            <td class="col-highlight"><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+          <tr>
+            <td>File formats</td>
+            <td>CSV, Excel</td>
+            <td class="col-highlight">CSV, Excel</td>
+            <td>CSV, Excel</td>
+            <td>CSV, Excel</td>
+          </tr>
+          <tr>
+            <td>PDF export</td>
+            <td><span class="dash-muted">—</span></td>
+            <td class="col-highlight"><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+          <tr>
+            <td>Email support</td>
+            <td><span class="check-blue">✓</span></td>
+            <td class="col-highlight"><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+          <tr>
+            <td>Priority support</td>
+            <td><span class="dash-muted">—</span></td>
+            <td class="col-highlight"><span class="dash-muted">—</span></td>
+            <td><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom integration</td>
+            <td><span class="dash-muted">—</span></td>
+            <td class="col-highlight"><span class="dash-muted">—</span></td>
+            <td><span class="check-blue">✓</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+          <tr>
+            <td>Dedicated support</td>
+            <td><span class="dash-muted">—</span></td>
+            <td class="col-highlight"><span class="dash-muted">—</span></td>
+            <td><span class="dash-muted">—</span></td>
+            <td><span class="check-blue">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. FAQ (Frequently asked questions) -->
+  <section class="faq-section" id="faq">
+    <h2 class="faq-title">Frequently asked questions</h2>
+
+    <div class="faq-accordion">
+      <!-- Q1 -->
+      <div class="faq-item is-open">
+        <button class="faq-question-btn" aria-expanded="true">
+          <span>Can I try EZ Reports for free?</span>
+          <span class="faq-toggle-icon">−</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Yes — start with 3 free analyses on your own spreadsheets. No card required and they never expire.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>Can I cancel or change my plan anytime?</span>
+          <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Yes, you can upgrade, downgrade, or cancel your subscription at any time. When cancelled, your plan remains active until the end of the billing period you have paid for. Unused analyses do not carry over to subsequent cycles.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>What counts as one analysis?</span>
+          <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            One analysis reads an entire project — however many linked workbooks that takes — extracts the data, computes all figures, generates fitted charts, and outputs an executive client-ready report. A failed analysis is never counted.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="faq-item">
+        <button class="faq-question-btn" aria-expanded="false">
+          <span>Do you offer custom enterprise solutions?</span>
+          <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-content">
+            Yes. We provide bespoke ERP/CRM data pipelines, custom security governance, on-premise integrations, and dedicated SLAs for large organizational teams. Contact our team at <a href="mailto:support@ezreports.io" style="color:var(--brand-blue-700);text-decoration:underline;">support@ezreports.io</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Contact CTA (Ready to get in touch?) -->
+  <section class="contact-banner-section" id="contact">
+    <div class="contact-banner">
+      <div class="contact-banner-info">
+        <h2 class="contact-banner-title">Ready to get in touch?</h2>
+        <p class="contact-banner-desc">
+          Contact us for a personalized demo, or talk through a plan that fits your team.
+        </p>
+        <a href="mailto:support@ezreports.io" class="contact-banner-email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          support@ezreports.io
+        </a>
+      </div>
+
+      <div class="contact-banner-actions">
+        <a href="mailto:support@ezreports.io?subject=Demo%20Request%20-%20EZ%20Reports" class="btn-cta-blue">
+          Contact us &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Final Contact Section (Let's discuss your vision.) -->
+  <section style="max-width:1200px;margin:0 auto 100px;padding:0 24px;">
+    <div style="background:#FFFFFF;border:1.5px solid var(--border-light);border-radius:var(--radius-xl);padding:50px 40px;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;">
+      <div style="max-width:620px;">
+        <span class="eyebrow-tag" style="color:var(--brand-blue-600);margin-bottom:8px;">GET IN TOUCH</span>
+        <h2 style="font-family:var(--font-serif);font-size:clamp(26px, 3.5vw, 36px);font-weight:700;color:#0F172A;letter-spacing:-0.02em;margin-bottom:12px;">
+          Let's discuss your vision.
+        </h2>
+        <p style="font-size:16px;color:#475569;line-height:1.6;margin-bottom:16px;">
+          Contact us for a personalized demo or any questions about EZ Reports.
+        </p>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <a href="mailto:support@ezreports.io" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:15px;font-weight:600;color:var(--brand-blue-700);text-decoration:none;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            support@ezreports.io
+          </a>
+          <span style="font-size:13.5px;color:#94A3B8;">&bull; We usually reply within one business day.</span>
+        </div>
+      </div>
+
+      <div>
+        <a href="mailto:support@ezreports.io?subject=Inquiry%20regarding%20EZ%20Reports" class="btn-primary" style="padding:14px 28px;font-size:15px;border-radius:var(--radius-full);">
+          Email us directly &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo-lockup" aria-label="EZ Reports Home">
+            <img src="brand/lockup-dark.webp" alt="EZ Reports" height="32" style="height:32px;width:auto;" />
+          </a>
+          <p>
+            Reporting for people who would rather not be in Excel all day.
+          </p>
+          <div style="margin-top:16px;">
+            <p style="font-size:13px;color:#94A3B8;margin-bottom:6px;">Contact:</p>
+            <a href="mailto:support@ezreports.io" style="color:var(--brand-blue-300);text-decoration:none;font-family:var(--font-mono);font-size:13.5px;">
+              support@ezreports.io
+            </a>
+            <p style="font-size:12px;color:#64748B;margin-top:4px;">We usually reply within one business day.</p>
+          </div>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Product</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#who-it-is-for">Who it's for</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Privacy & Data</h3>
+          <ul>
+            <li><a href="terms.html">Delete your data anytime</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="terms.html#privacy">Privacy Policy</a></li>
+            <li><a href="mailto:privacy@ezreports.io">privacy@ezreports.io</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#who-it-is-for">About us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="mailto:support@ezreports.io">support@ezreports.io</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Trust Checkpoints with Blue Check Icons (No Green) -->
+      <ul class="footer-trust-grid">
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Reads .xlsx, .xlsm, .xls and .csv, up to 25 MB a file</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Every figure calculated from your data and reconciled</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Files encrypted, and deleted 30 days after upload</span>
+        </li>
+        <li class="footer-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>3 analyses free, no card needed</span>
+        </li>
+      </ul>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SVC Group LLC, doing business as EZ Reports. 43763 Cog Hill, Ashburn, VA 20147.</p>
+        <div>
+          <a href="#pricing">Launch app &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

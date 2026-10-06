@@ -273,77 +273,159 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // --- Animated dashboard helpers (professional, calm motion) ---
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  const numTokens = (d) => (d.match(/-?\d+\.?\d*/g) || []).map(Number);
+  function morphPath(el, toD, dur = 650) {
+    if (!el) return;
+    const fromD = el.getAttribute('d');
+    if (!fromD || fromD === toD) { el.setAttribute('d', toD); return; }
+    const fromN = numTokens(fromD), toN = numTokens(toD);
+    if (fromN.length !== toN.length) { el.setAttribute('d', toD); return; }
+    const template = toD;
+    let idx = 0;
+    const parts = template.split(/(-?\d+\.?\d*)/g);
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const e = easeOut(p);
+      let k = 0;
+      const out = parts.map(part => {
+        if (/^-?\d+\.?\d*$/.test(part)) {
+          const v = fromN[k] + (toN[k] - fromN[k]) * e;
+          k++;
+          return (Math.round(v * 10) / 10).toString();
+        }
+        return part;
+      }).join('');
+      el.setAttribute('d', out);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function tweenPoint(pt, toX, toY, dur = 500) {
+    const fx = parseFloat(pt.getAttribute('cx')), fy = parseFloat(pt.getAttribute('cy'));
+    if (fx === toX && fy === toY) return;
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      const e = easeOut(p);
+      pt.setAttribute('cx', (fx + (toX - fx) * e).toFixed(1));
+      pt.setAttribute('cy', (fy + (toY - fy) * e).toFixed(1));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function countKpi(el, toText, dur = 700) {
+    if (!el) return;
+    const m = toText.match(/^([^0-9]*)([0-9,.]+(?:\.\d+)?)(.*)$/);
+    if (!m) { el.textContent = toText; return; }
+    const [, pre, numStr, suf] = m;
+    const target = parseFloat(numStr.replace(/,/g, ''));
+    const decimals = (numStr.split('.')[1] || '').length;
+    if (isNaN(target)) { el.textContent = toText; return; }
+    const fromM = el.textContent.match(/([0-9,.]+(?:\.\d+)?)/);
+    const from = fromM ? parseFloat(fromM[1].replace(/,/g, '')) : 0;
+    const start = performance.now();
+    const fmt = (v) => v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    const step = (now) => {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = pre + fmt(from + (target - from) * easeOut(p)) + suf;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = toText;
+    };
+    requestAnimationFrame(step);
+  }
+  function setTooltipFor(ptData, peakXFallback) {
+    if (!chartTooltip) return;
+    chartTooltip.style.left = `${((ptData.x ?? peakXFallback) / 460) * 100}%`;
+    chartTooltip.style.top = `${(ptData.y ?? 28) - 14}px`;
+    if (tooltipBadge) tooltipBadge.innerHTML = `${ptData.label} &bull; Q3`;
+    if (tooltipTrace) tooltipTrace.textContent = ptData.trace;
+    if (tooltipVal) tooltipVal.textContent = ptData.val;
+    if (tooltipGrowth) tooltipGrowth.textContent = ptData.growth;
+    if (tooltipSub) tooltipSub.textContent = ptData.sub;
+  }
+
   function updateDashboardMetric(metricKey) {
     const data = datasetMetrics[metricKey];
     if (!data) return;
 
-    // 1. Update Curve & Area Paths
-    if (curvePath) curvePath.setAttribute('d', data.curve);
-    if (areaPath) areaPath.setAttribute('d', data.area);
-    if (targetLine) targetLine.setAttribute('d', data.target);
+    // 1. Morph Curve & Area Paths (animated, not jumpy)
+    morphPath(curvePath, data.curve);
+    morphPath(areaPath, data.area);
+    morphPath(targetLine, data.target, 650);
 
-    // 2. Update KPI numbers
-    if (heroKpi1) heroKpi1.textContent = data.kpi1;
+    // 2. Count-up KPI numbers
+    countKpi(heroKpi1, data.kpi1);
+    countKpi(heroKpi2, data.kpi2);
     if (heroKpi1Trend) heroKpi1Trend.textContent = data.kpi1Trend;
-    if (heroKpi2) heroKpi2.textContent = data.kpi2;
     if (heroKpi2Trend) heroKpi2Trend.textContent = data.kpi2Trend;
-    if (heroChartSubtitle) heroChartSubtitle.textContent = data.subtitle;
-    if (heroFindingQuote) heroFindingQuote.innerHTML = data.finding;
+    if (heroChartSubtitle) {
+      heroChartSubtitle.classList.add('subtitle-swap');
+      setTimeout(() => {
+        heroChartSubtitle.textContent = data.subtitle;
+        heroChartSubtitle.classList.remove('subtitle-swap');
+      }, 180);
+    }
+    if (heroFindingQuote) {
+      heroFindingQuote.classList.add('finding-swap');
+      setTimeout(() => {
+        heroFindingQuote.innerHTML = data.finding;
+        heroFindingQuote.classList.remove('finding-swap');
+      }, 200);
+    }
 
-    // 3. Update Points
+    // 3. Glide Points to new positions
     chartPoints.forEach((pt, idx) => {
       const ptData = data.points[idx];
       if (ptData) {
-        pt.setAttribute('cx', ptData.x);
-        pt.setAttribute('cy', ptData.y);
+        tweenPoint(pt, ptData.x, ptData.y);
         pt.setAttribute('data-val', ptData.val);
         pt.setAttribute('data-growth', ptData.growth);
         pt.setAttribute('data-trace', ptData.trace);
         pt.setAttribute('data-label', ptData.label);
         pt.setAttribute('data-sub', ptData.sub);
-        
-        if (idx === data.peakIndex) {
-          pt.classList.add('active-peak');
-        } else {
-          pt.classList.remove('active-peak');
-        }
+        pt.classList.toggle('active-peak', idx === data.peakIndex);
       }
     });
 
-    // 4. Update Guide line & Tooltip position
+    // 4. Glide Guide line & Tooltip to peak
     if (guideLine) {
+      guideLine.style.transition = 'all .5s cubic-bezier(.16,1,.3,1)';
       guideLine.setAttribute('x1', data.peakX);
       guideLine.setAttribute('x2', data.peakX);
       guideLine.setAttribute('y1', data.peakY);
     }
+    setTooltipFor(data.points[data.peakIndex], data.peakX);
+    window.__ezActivePoint = data.peakIndex;
+    window.__ezActiveMetric = metricKey;
 
-    if (chartTooltip) {
-      const peak = data.points[data.peakIndex];
-      chartTooltip.style.left = `${(data.peakX / 460) * 100}%`;
-      chartTooltip.style.top = `${data.peakY - 14}px`;
-      if (tooltipBadge) tooltipBadge.innerHTML = `${peak.label} &bull; Q3`;
-      if (tooltipTrace) tooltipTrace.textContent = peak.trace;
-      if (tooltipVal) tooltipVal.textContent = peak.val;
-      if (tooltipGrowth) tooltipGrowth.textContent = peak.growth;
-      if (tooltipSub) tooltipSub.textContent = peak.sub;
-    }
-
-    // 5. Update Client List
+    // 5. Update Client List with animated bars
     if (heroClientList) {
-      heroClientList.innerHTML = data.clients.map(c => `
-        <div class="client-row-item">
-          <div class="client-row-meta">
-            <div class="client-badge-info">
-              <span class="client-avatar">${c.avatar}</span>
-              <span class="client-row-name">${c.name}</span>
+      heroClientList.classList.add('clients-swap');
+      setTimeout(() => {
+        heroClientList.innerHTML = data.clients.map(c => `
+          <div class="client-row-item">
+            <div class="client-row-meta">
+              <div class="client-badge-info">
+                <span class="client-avatar">${c.avatar}</span>
+                <span class="client-row-name">${c.name}</span>
+              </div>
+              <span class="client-row-amount">${c.amount} <span class="badge-growth">${c.growth}</span></span>
             </div>
-            <span class="client-row-amount">${c.amount} <span class="badge-growth">${c.growth}</span></span>
+            <div class="client-progress-track">
+              <div class="client-progress-fill" style="--w: ${c.width}; width: 0;"></div>
+            </div>
           </div>
-          <div class="client-progress-track">
-            <div class="client-progress-fill" style="width: ${c.width};"></div>
-          </div>
-        </div>
-      `).join('');
+        `).join('');
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          heroClientList.querySelectorAll('.client-progress-fill').forEach(bar => {
+            bar.style.width = bar.style.getPropertyValue('--w') || '60%';
+          });
+        }));
+        heroClientList.classList.remove('clients-swap');
+      }, 180);
     }
   }
 
@@ -354,40 +436,95 @@ document.addEventListener('DOMContentLoaded', () => {
       tab.classList.add('active');
       const metric = tab.getAttribute('data-metric');
       updateDashboardMetric(metric);
+      // pause auto-play briefly so user stays in control, then resume
+      if (window.__ezPauseAuto) window.__ezPauseAuto(12000);
     });
   });
 
-  // Bind hover/click interaction on points
+  // Bind hover interaction on points (pauses auto-scan while exploring)
   chartPoints.forEach(pt => {
     pt.addEventListener('mouseenter', () => {
+      if (window.__ezPauseAuto) window.__ezPauseAuto(10000);
       const cx = parseFloat(pt.getAttribute('cx'));
       const cy = parseFloat(pt.getAttribute('cy'));
-      const val = pt.getAttribute('data-val');
-      const growth = pt.getAttribute('data-growth');
-      const trace = pt.getAttribute('data-trace');
-      const label = pt.getAttribute('data-label');
-      const sub = pt.getAttribute('data-sub');
-
       chartPoints.forEach(p => p.classList.remove('active-peak'));
       pt.classList.add('active-peak');
-
       if (guideLine) {
         guideLine.setAttribute('x1', cx);
         guideLine.setAttribute('x2', cx);
         guideLine.setAttribute('y1', cy);
       }
-
-      if (chartTooltip) {
-        chartTooltip.style.left = `${(cx / 460) * 100}%`;
-        chartTooltip.style.top = `${cy - 14}px`;
-        if (tooltipBadge) tooltipBadge.innerHTML = `${label} &bull; Q3`;
-        if (tooltipTrace) tooltipTrace.textContent = trace;
-        if (tooltipVal) tooltipVal.textContent = val;
-        if (tooltipGrowth) tooltipGrowth.textContent = growth;
-        if (tooltipSub) tooltipSub.textContent = sub;
-      }
+      setTooltipFor({
+        x: cx, y: cy,
+        label: pt.getAttribute('data-label'),
+        trace: pt.getAttribute('data-trace'),
+        val: pt.getAttribute('data-val'),
+        growth: pt.getAttribute('data-growth'),
+        sub: pt.getAttribute('data-sub')
+      });
+      window.__ezActivePoint = Array.from(chartPoints).indexOf(pt);
     });
   });
+
+  // LIVE AUTO-PLAY: rotate tabs + scan points, pause on hover/hidden/reduced-motion
+  const autoReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroCard = document.querySelector('.hero-live-right');
+  const metricOrder = ['revenue', 'margin', 'hours'];
+  let autoMetricIdx = 0, resumeAt = 0, scanTimer = null, metricTimer = null;
+  window.__ezPauseAuto = (ms) => { resumeAt = Date.now() + ms; };
+  function highlightPoint(i) {
+    const key = window.__ezActiveMetric || 'revenue';
+    const data = datasetMetrics[key];
+    if (!data || !data.points[i]) return;
+    window.__ezActivePoint = i;
+    chartPoints.forEach((p, k) => p.classList.toggle('active-peak', k === i));
+    const pt = data.points[i];
+    if (guideLine) {
+      guideLine.setAttribute('x1', pt.x);
+      guideLine.setAttribute('x2', pt.x);
+      guideLine.setAttribute('y1', pt.y);
+    }
+    setTooltipFor(pt);
+    timelineLabels.forEach((t, k) => t.classList.toggle('timeline-active', k === i));
+  }
+  function nextMetric() {
+    if (document.hidden || Date.now() < resumeAt) return;
+    if (heroCard && heroCard.matches(':hover')) return;
+    autoMetricIdx = (autoMetricIdx + 1) % metricOrder.length;
+    const key = metricOrder[autoMetricIdx];
+    heroTabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-metric') === key));
+    updateDashboardMetric(key);
+  }
+  function nextScan() {
+    if (document.hidden || Date.now() < resumeAt) return;
+    if (heroCard && heroCard.matches(':hover')) return;
+    const key = window.__ezActiveMetric || 'revenue';
+    const n = (datasetMetrics[key]?.points || []).length;
+    if (!n) return;
+    highlightPoint(((window.__ezActivePoint ?? 0) + 1) % n);
+  }
+  if (!autoReduced && heroCard) {
+    window.__ezActiveMetric = 'revenue';
+    window.__ezActivePoint = 4;
+    // Auto badge next to subtitle
+    const titleGroup = heroCard.querySelector('.chart-title-group');
+    if (titleGroup && !titleGroup.querySelector('.auto-live-badge')) {
+      const badge = document.createElement('span');
+      badge.className = 'auto-live-badge';
+      badge.innerHTML = '<span class="auto-dot"></span> AUTO';
+      titleGroup.appendChild(badge);
+    }
+    metricTimer = setInterval(nextMetric, 5200);
+    scanTimer = setInterval(nextScan, 1900);
+    heroCard.addEventListener('mouseenter', () => {
+      const b = heroCard.querySelector('.auto-live-badge');
+      if (b) b.classList.add('is-paused');
+    });
+    heroCard.addEventListener('mouseleave', () => {
+      const b = heroCard.querySelector('.auto-live-badge');
+      if (b) b.classList.remove('is-paused');
+    });
+  }
 
   // Interactive trace link copy/toast effect
   const traceLink = document.querySelector('.finding-trace-link');
@@ -404,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-// 7. Professional Motion: header elevation on scroll
+  // 7. Professional Motion: header elevation on scroll
   const header = document.querySelector('.header');
   const onScrollHeader = () => {
     if (!header) return;
@@ -513,9 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  
-
-// 11. LIVING BACKGROUND: blue light follows the mouse (smooth, embossed)
+  // 11. LIVING BACKGROUND: blue light follows the mouse (smooth, embossed)
   const aura = document.getElementById('cursorAura');
   const finePointer = window.matchMedia('(pointer: fine)').matches;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

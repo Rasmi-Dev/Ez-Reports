@@ -3028,3 +3028,39 @@ body {
   .cursor-aura { display: none; }
   .orb { animation: none; }
 }
+
+/* =========================================================
+   HERO CARD — LIVE AUTO-PLAY polish
+   ========================================================= */
+.chart-subtitle-label, .finding-quote, .client-data-rows {
+  transition: opacity .18s ease, transform .18s ease;
+}
+.subtitle-swap, .finding-swap, .clients-swap {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.auto-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: #2563EB;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  width: fit-content;
+}
+.auto-live-badge .auto-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #2563EB;
+  animation: statusPulse 2s infinite;
+}
+.auto-live-badge.is-paused { color: #64748B; background: #F1F5F9; border-color: #E2E8F0; }
+.auto-live-badge.is-paused .auto-dot { background: #94A3B8; animation: none; }
+.kpi-mini-val, .tooltip-val { font-variant-numeric: tabular-nums; }
